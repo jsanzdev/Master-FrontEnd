@@ -1,0 +1,9 @@
+$background: teal;
+
+.result-background {
+  background-color: $background;
+}
+
+:global(.card-title) {
+  background-color: $background;
+}
