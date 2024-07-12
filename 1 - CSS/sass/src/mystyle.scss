@@ -1,0 +1,27 @@
+@use 'base' as *;
+
+
+div.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: $primary-color;
+    border: 4px solid $secondary-color;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    h1 {
+        font-size: 1.5em;
+        color: $text-color;
+        text-align: center;
+        padding: 10px;
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    p {
+        font-size: 1em;
+        color: #666;
+        padding: 10px;
+        margin: 0;
+    }
+}

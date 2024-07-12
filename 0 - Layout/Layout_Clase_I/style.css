@@ -1,0 +1,16 @@
+.box {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+  background-color: lightblue;
+  border: 3px darkblue solid;
+  display: inline-block;
+}
+
+#element {
+  position: absolute;
+  background-color: darkorange;
+  border: 3px brown solid;
+  top: 150px;
+  left: 50px;
+}
