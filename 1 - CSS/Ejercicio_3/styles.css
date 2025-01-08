@@ -1,0 +1,55 @@
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.menu {
+  width: 100%;
+  background-color: #006666;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.menu li {
+  flex: 1;
+}
+
+.menu li a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+  transition: background-color 0.3s;
+}
+
+.menu li a::selection,
+.menu li a:active,
+.menu li a:hover {
+  background-color: #003333;
+}
+
+@media (max-width: 768px) {
+  .menu ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu li {
+    flex: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu li a {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
