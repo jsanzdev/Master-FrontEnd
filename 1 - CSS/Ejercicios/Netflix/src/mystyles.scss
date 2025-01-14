@@ -73,9 +73,16 @@ section {
   }
 }
 
+.item {
+  min-width: 250px;
+}
+
+.top {
+  min-width: 225px;
+}
+
 .top {
   display: flex;
-  flex-direction: row-reverse;
 }
 
 .first,
@@ -93,4 +100,17 @@ footer {
   background-color: #000;
   color: white;
   font-size: 0.8rem;
+}
+
+@media (max-width: 1280px) {
+  header {
+    .platform-title {
+      display: none;
+    }
+  }
+  .top {
+    .top-item:nth-child(n + 4) {
+      display: none;
+    }
+  }
 }

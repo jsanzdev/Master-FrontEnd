@@ -27,11 +27,11 @@
       Los <span id="top-text"></span> más populares hoy
     </div>
     <section class="top">
-      <div class="top-item"><img src="assets/top/5.jpg" /></div>
-      <div class="top-item"><img src="assets/top/4.jpg" /></div>
-      <div class="top-item"><img src="assets/top/3.jpg" /></div>
-      <div class="top-item"><img src="assets/top/2.jpg" /></div>
       <div class="top-item"><img src="assets/top/1.jpg" /></div>
+      <div class="top-item"><img src="assets/top/2.jpg" /></div>
+      <div class="top-item"><img src="assets/top/3.jpg" /></div>
+      <div class="top-item"><img src="assets/top/4.jpg" /></div>
+      <div class="top-item"><img src="assets/top/5.jpg" /></div>
     </section>
     <div class="section-title">Comedias</div>
     <section class="first">
@@ -56,3 +56,23 @@
 </body>
 
 </html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const updateTopCount = () => {
+      const topSection = document.querySelector('section.top');
+      const span = document.getElementById('top-text');
+      const viewportWidth = window.innerWidth;
+
+      if (viewportWidth < 1280) {
+        span.textContent = '3';
+      } else {
+        const itemCount = topSection.querySelectorAll('.top-item').length;
+        span.textContent = itemCount.toString();
+      }
+    };
+
+    updateTopCount();
+    window.addEventListener('resize', updateTopCount);
+  });
+</script>
