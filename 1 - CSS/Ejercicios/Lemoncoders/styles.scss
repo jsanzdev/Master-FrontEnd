@@ -48,14 +48,23 @@ body {
   text-align: center;
   // ALL CAPS
   text-transform: uppercase;
+  color: #f9fbe1;
+  font-size: 1.1rem;
+}
+
+.menu-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #f9fbe1;
 }
 
 .menu-container li {
   text-decoration: none;
-  color: white;
   padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
   display: block;
+  color: black;
+  border-top: 1px solid #d4e157;
 }
 
 .menu-container li:hover,
@@ -110,7 +119,7 @@ body {
 
 /* Footer */
 footer {
-  background-color: #d4e157;
+  background-color: #f9fbe1;
   color: #333;
   text-align: left;
   padding: 1rem;
