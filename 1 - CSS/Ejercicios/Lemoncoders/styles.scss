@@ -1,0 +1,118 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  gap: 1rem;
+  background-color: white;
+  color: black;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.page-title {
+  background-color: #d4e157;
+  margin: 0;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.page-container {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar Navigation */
+.menu-container {
+  width: 200px;
+  background-color: #333;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-title {
+  padding: 1rem;
+  font-weight: bold;
+  margin: 1rem;
+  text-align: center;
+  // ALL CAPS
+  text-transform: uppercase;
+}
+
+.menu-container li {
+  text-decoration: none;
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  display: block;
+}
+
+.menu-container li:hover,
+.menu-container li.active {
+  background-color: #d4e157; /* Highlight active or hover link */
+  color: #333;
+  font-weight: bold;
+}
+
+/* Main Content */
+.list {
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Member Card */
+.card-item {
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 200px; /* Fixed width for uniform size */
+  height: 150px;
+  text-align: center;
+  margin: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-item img {
+  border-radius: 50%; /* Circular images */
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid #d4e157; /* Highlight border */
+}
+
+.member-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 0.5rem;
+}
+
+/* Footer */
+footer {
+  background-color: #d4e157;
+  color: #333;
+  text-align: left;
+  padding: 1rem;
+  margin-top: auto;
+}
