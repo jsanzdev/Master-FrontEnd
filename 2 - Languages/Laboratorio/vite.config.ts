@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
-import type { UserConfig as VitestUserConfigInterface } from "vitest/config";
+import type { UserConfig as VitestUserConfigInterface } from "vitest/config.js";
 
 const vitestConfig: VitestUserConfigInterface = {
   test: {
