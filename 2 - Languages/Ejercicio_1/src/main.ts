@@ -39,3 +39,19 @@ const numeros2 = [5, 6, 7, 8];
 const numerosConcatenados = concat(numeros, numeros2);
 
 console.log(numerosConcatenados);
+
+// Clone Merge
+
+function clone<T>(array: T[]): T[] {
+  return [...array];
+}
+
+const numerosClonados = clone(numeros);
+console.log(numeros === numerosClonados);
+
+function merge<T>(array1: T[], array2: T[]): T[] {
+  return [...array1, ...array2];
+}
+
+const numerosMerge = merge(numeros, numeros2);
+console.log(numerosMerge);
