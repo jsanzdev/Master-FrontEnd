@@ -76,3 +76,43 @@ function isBookRead(books: Book[], titleToSearch: string): boolean {
 console.log(isBookRead(books, "Devastación")); // true
 console.log(isBookRead(books, "Canción de hielo y fuego")); // false
 console.log(isBookRead(books, "Los Pilares de la Tierra")); // false
+
+// Slot Machine
+
+class SlothMachine {
+  private coins: number;
+
+  constructor() {
+    this.coins = 0;
+  }
+
+  private getRandomBoolean(): boolean {
+    return Math.random() >= 0.5;
+  }
+
+  private play(): void {
+    this.coins++;
+
+    const first = this.getRandomBoolean();
+    const second = this.getRandomBoolean();
+    const third = this.getRandomBoolean();
+
+    if (first && second && third) {
+      console.log(`Congratulations!!!. You won ${this.coins} coins!!`);
+      this.coins = 0;
+    } else {
+      console.log("Good luck next time!!");
+    }
+  }
+
+  public playMachine(): void {
+    this.play();
+  }
+}
+
+const machine1 = new SlothMachine();
+machine1.playMachine();
+machine1.playMachine();
+machine1.playMachine();
+machine1.playMachine();
+machine1.playMachine();
