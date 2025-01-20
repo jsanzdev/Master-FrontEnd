@@ -129,20 +129,35 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  .toolbar {
+    display: none;
+  }
   .page-container {
     flex-direction: column;
     background-color: #f1f1f1;
     position: relative;
     overflow: visible;
   }
-  .menu-container {
+  // .menu-container {
+  //   position: sticky;
+  //   top: 0;
+  //   z-index: 100;
+  //   width: 100%;
+  //   background-color: #333;
+  //   height: auto;
+  //   min-height: unset;
+  // }
+  nav.mobile-nav {
     position: sticky;
     top: 0;
     z-index: 100;
     width: 100%;
     background-color: #333;
+  }
+
+  .menu-container {
+    width: 100%;
     height: auto;
-    min-height: unset;
   }
 
   .menu-title {
@@ -155,7 +170,6 @@ footer {
     gap: 1rem;
     justify-content: space-evenly;
     background-color: #333;
-    position: sticky;
   }
 
   .menu-container li {
@@ -184,6 +198,7 @@ footer {
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: left;
   }
   .card-item img {
     width: 100px;
