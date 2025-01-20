@@ -29,6 +29,8 @@ body {
 .page-container {
   display: flex;
   flex: 1;
+  min-height: calc(100vh - 64px);
+  position: relative;
 }
 
 /* Sidebar Navigation */
@@ -36,9 +38,13 @@ body {
   width: 200px;
   background-color: #333;
   color: white;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-self: flex-start;
+  z-index: 10;
 }
 
 .menu-title {
@@ -46,7 +52,6 @@ body {
   font-weight: bold;
   margin: 1rem;
   text-align: center;
-  // ALL CAPS
   text-transform: uppercase;
   color: #f9fbe1;
   font-size: 1.1rem;
@@ -69,7 +74,7 @@ body {
 
 .menu-container li:hover,
 .menu-container li.active {
-  background-color: #d4e157; /* Highlight active or hover link */
+  background-color: #d4e157;
   color: #333;
   font-weight: bold;
 }
@@ -81,6 +86,8 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* Member Card */
@@ -90,7 +97,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  width: 200px; /* Fixed width for uniform size */
+  width: 200px;
   height: 150px;
   text-align: center;
   margin: 1rem;
@@ -103,23 +110,27 @@ body {
 }
 
 .card-item img {
-  border-radius: 50%; /* Circular images */
+  border-radius: 50%;
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border: 2px solid #d4e157; /* Highlight border */
+  margin-bottom: 0.5rem;
 }
 
-.member-name {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333;
-  margin-top: 0.5rem;
+.card-item h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.card-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 /* Footer */
 footer {
-  background-color: #f9fbe1;
+  background-color: #d4e157;
   color: #333;
   text-align: left;
   padding: 1rem;
