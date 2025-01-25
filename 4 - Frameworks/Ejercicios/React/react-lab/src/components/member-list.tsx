@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -24,36 +25,41 @@ export const MemberList: FC<Props> = ({ members }) => {
       <Grid2 container spacing={3}>
         {members.map((member) => (
           <Grid2 xs={12} sm={6} md={4} lg={3} key={member.id}>
-            <Card
-              sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                transition: "0.3s",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: 3,
-                },
-              }}
+            <Link
+              to={`/detail/${member.login}`}
+              style={{ textDecoration: "none" }}
             >
-              <CardMedia
-                component="img"
+              <Card
                 sx={{
-                  height: 200,
-                  objectFit: "cover",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 3,
+                  },
                 }}
-                image={member.avatar_url}
-                alt={member.login}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h6">
-                  {member.login}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  ID: {member.id}
-                </Typography>
-              </CardContent>
-            </Card>
+              >
+                <CardMedia
+                  component="img"
+                  sx={{
+                    height: 200,
+                    objectFit: "cover",
+                  }}
+                  image={member.avatar_url}
+                  alt={member.login}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h6">
+                    {member.login}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ID: {member.id}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid2>
         ))}
       </Grid2>
