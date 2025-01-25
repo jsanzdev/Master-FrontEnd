@@ -1,14 +1,22 @@
 import { FC, useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useSearchParams } from "react-router-dom";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { MemberList, MemberEntity } from "./components/member-list";
 
 export const ListPage: FC = () => {
+  const [searchParams] = useSearchParams();
+  const orgParam = searchParams.get("org");
   const [members, setMembers] = useState<MemberEntity[]>([]);
-  const [organization, setOrganization] = useState<string>("lemoncode");
+  const [organization, setOrganization] = useState<string>(
+    orgParam || "lemoncode"
+  );
+  const [currentSearch, setCurrentSearch] = useState<string>(
+    orgParam || "lemoncode"
+  );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchMembers();
+    setCurrentSearch(organization);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,14 +24,14 @@ export const ListPage: FC = () => {
   };
 
   const fetchMembers = () => {
-    fetch(`https://api.github.com/orgs/${organization}/members`)
+    fetch(`https://api.github.com/orgs/${currentSearch}/members`)
       .then((response) => response.json())
       .then((json) => setMembers(json));
   };
 
   useEffect(() => {
     fetchMembers();
-  }, []);
+  }, [currentSearch]);
 
   return (
     <>

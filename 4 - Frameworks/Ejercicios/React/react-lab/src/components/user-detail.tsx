@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
+import BusinessIcon from "@mui/icons-material/Business";
 
 interface Repository {
   id: number;
@@ -21,6 +22,11 @@ interface Repository {
   description: string;
   language: string;
   stargazers_count: number;
+}
+
+interface Organization {
+  login: string;
+  avatar_url: string;
 }
 
 interface User {
@@ -38,27 +44,31 @@ interface Props {
 export const UserDetail: FC<Props> = ({ username }) => {
   const [repos, setRepos] = useState<Repository[]>([]);
   const [user, setUser] = useState<User | null>(null);
+  const [orgs, setOrgs] = useState<Organization[]>([]);
+  const [starred, setStarred] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [starred, setStarred] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [userResponse, reposResponse, starredResponse] =
+        const [userResponse, reposResponse, orgsResponse, starredResponse] =
           await Promise.all([
             fetch(`https://api.github.com/users/${username}`),
             fetch(`https://api.github.com/users/${username}/repos`),
+            fetch(`https://api.github.com/users/${username}/orgs`),
             fetch(`https://api.github.com/users/${username}/starred`),
           ]);
 
         const userData = await userResponse.json();
         const reposData = await reposResponse.json();
+        const orgsData = await orgsResponse.json();
         const starredData = await starredResponse.json();
 
         setUser(userData);
         setRepos(reposData);
+        setOrgs(orgsData);
         setStarred(starredData.length);
       } catch (err) {
         setError("Error fetching data");
@@ -108,7 +118,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
             <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
               {user.bio}
             </Typography>
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               <Chip
                 icon={<PeopleIcon />}
                 label={`${user.followers} followers`}
@@ -119,6 +129,17 @@ export const UserDetail: FC<Props> = ({ username }) => {
                 label={`${starred} starred`}
                 variant="outlined"
               />
+              {orgs.map((org) => (
+                <Chip
+                  key={org.login}
+                  component={Link}
+                  to={`/list?org=${org.login}`}
+                  icon={<BusinessIcon />}
+                  label={org.login}
+                  variant="outlined"
+                  clickable
+                />
+              ))}
             </Box>
           </Box>
         </Box>
@@ -129,7 +150,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
 
         <Grid2 container spacing={3}>
           {repos.map((repo) => (
-            <Grid2 xs={12} sm={6} md={4} key={repo.id}>
+            <Grid2 xs={12} sm={6} md={4} lg={3} key={repo.id}>
               <Card sx={{ height: "100%" }}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
