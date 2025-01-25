@@ -1,5 +1,13 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+} from "@mui/material";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -8,7 +16,6 @@ export const LoginPage: React.FC = () => {
 
   const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (username === "admin" && password === "test") {
       navigate("/list");
     } else {
@@ -17,30 +24,65 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleNavigation}>
-        <h2>Hello from login page</h2>
-
-        <div>
-          <div>
-            <label>Username: </label>
-            <input
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={3} sx={{ p: 4, width: "100%" }}>
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ mb: 3, textAlign: "center" }}
+          >
+            Login
+          </Typography>
+          <Box component="form" onSubmit={handleNavigation}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="Username"
+              name="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autoFocus
             />
-          </div>
-          <div>
-            <label>Password: </label>
-            <input
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="Password"
+              name="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
-    </>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 };
