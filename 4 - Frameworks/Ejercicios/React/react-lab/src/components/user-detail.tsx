@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -9,6 +10,7 @@ import {
   Chip,
   Container,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
@@ -73,8 +75,29 @@ export const UserDetail: FC<Props> = ({ username }) => {
   if (!user) return <Typography>No user data available</Typography>;
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
+    <Container maxWidth={false} sx={{ height: "100vh", p: 0 }}>
+      <Button
+        component={Link}
+        to="/list"
+        variant="contained"
+        sx={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          zIndex: 1,
+        }}
+      >
+        Back to List
+      </Button>
+      <Box
+        sx={{
+          py: 4,
+          px: 2,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
           <Avatar
             src={user.avatar_url}
