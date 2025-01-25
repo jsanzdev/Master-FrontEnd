@@ -1,13 +1,11 @@
 import { FC } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Avatar,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Grid2,
 } from "@mui/material";
 
 export interface MemberEntity {
@@ -22,38 +20,43 @@ interface Props {
 
 export const MemberList: FC<Props> = ({ members }) => {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ maxWidth: "80%", margin: "2rem auto" }}
-    >
-      <Table sx={{ minWidth: 650 }}>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Avatar</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Id</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {members.map((member) => (
-            <TableRow
-              key={member.id}
-              hover
-              sx={{ "&:last-child td": { border: 0 } }}
+    <Box sx={{ flexGrow: 1, p: 2, maxWidth: "90%", margin: "0 auto" }}>
+      <Grid2 container spacing={3}>
+        {members.map((member) => (
+          <Grid2 xs={12} sm={6} md={4} lg={3} key={member.id}>
+            <Card
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                transition: "0.3s",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: 3,
+                },
+              }}
             >
-              <TableCell>
-                <Avatar
-                  src={member.avatar_url}
-                  alt={member.login}
-                  sx={{ width: 50, height: 50 }}
-                />
-              </TableCell>
-              <TableCell>{member.id}</TableCell>
-              <TableCell>{member.login}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <CardMedia
+                component="img"
+                sx={{
+                  height: 200,
+                  objectFit: "cover",
+                }}
+                image={member.avatar_url}
+                alt={member.login}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6">
+                  {member.login}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ID: {member.id}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid2>
+        ))}
+      </Grid2>
+    </Box>
   );
 };
