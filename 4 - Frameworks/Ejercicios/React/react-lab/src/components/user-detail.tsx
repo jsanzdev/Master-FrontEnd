@@ -1,0 +1,140 @@
+import { FC, useEffect, useState } from "react";
+import {
+  Avatar,
+  Box,
+  Typography,
+  Grid2,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  CircularProgress,
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import PeopleIcon from "@mui/icons-material/People";
+
+interface Repository {
+  id: number;
+  name: string;
+  description: string;
+  language: string;
+  stargazers_count: number;
+}
+
+interface User {
+  avatar_url: string;
+  name: string;
+  login: string;
+  bio: string;
+  followers: number;
+}
+
+interface Props {
+  username: string;
+}
+
+export const UserDetail: FC<Props> = ({ username }) => {
+  const [repos, setRepos] = useState<Repository[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [starred, setStarred] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [userResponse, reposResponse, starredResponse] =
+          await Promise.all([
+            fetch(`https://api.github.com/users/${username}`),
+            fetch(`https://api.github.com/users/${username}/repos`),
+            fetch(`https://api.github.com/users/${username}/starred`),
+          ]);
+
+        const userData = await userResponse.json();
+        const reposData = await reposResponse.json();
+        const starredData = await starredResponse.json();
+
+        setUser(userData);
+        setRepos(reposData);
+        setStarred(starredData.length);
+      } catch (err) {
+        setError("Error fetching data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [username]);
+
+  if (loading) return <CircularProgress />;
+  if (error) return <Typography color="error">{error}</Typography>;
+  if (!user) return <Typography>No user data available</Typography>;
+
+  return (
+    <Container maxWidth="lg">
+      <Box sx={{ py: 4 }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+          <Avatar
+            src={user.avatar_url}
+            sx={{ width: 100, height: 100, mr: 3 }}
+          />
+          <Box>
+            <Typography variant="h4">{user.name || user.login}</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+              {user.bio}
+            </Typography>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Chip
+                icon={<PeopleIcon />}
+                label={`${user.followers} followers`}
+                variant="outlined"
+              />
+              <Chip
+                icon={<StarIcon />}
+                label={`${starred} starred`}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+        </Box>
+
+        <Typography variant="h5" sx={{ mb: 3 }}>
+          Repositories
+        </Typography>
+
+        <Grid2 container spacing={3}>
+          {repos.map((repo) => (
+            <Grid2 xs={12} sm={6} md={4} key={repo.id}>
+              <Card sx={{ height: "100%" }}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {repo.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
+                    {repo.description || "No description available"}
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: 1 }}>
+                    {repo.language && (
+                      <Chip label={repo.language} size="small" />
+                    )}
+                    <Chip
+                      icon={<StarIcon />}
+                      label={repo.stargazers_count}
+                      size="small"
+                    />
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid2>
+          ))}
+        </Grid2>
+      </Box>
+    </Container>
+  );
+};
