@@ -4,7 +4,7 @@ import { TextField, Button, Box, Typography } from "@mui/material";
 import { MemberList, MemberEntity } from "./components/member-list";
 
 export const ListPage: FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const orgParam = searchParams.get("org");
   const [members, setMembers] = useState<MemberEntity[]>([]);
   const [organization, setOrganization] = useState<string>(
@@ -17,6 +17,7 @@ export const ListPage: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCurrentSearch(organization);
+    setSearchParams({ org: organization });
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

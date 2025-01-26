@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -48,6 +48,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
   const [starred, setStarred] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,8 +88,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
   return (
     <Container maxWidth={false} sx={{ height: "100vh", p: 0 }}>
       <Button
-        component={Link}
-        to="/list"
+        onClick={() => navigate(-1)}
         variant="contained"
         sx={{
           position: "absolute",
