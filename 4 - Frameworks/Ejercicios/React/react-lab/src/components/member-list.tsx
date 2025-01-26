@@ -24,7 +24,11 @@ export const MemberList: FC<Props> = ({ members }) => {
     <Box sx={{ flexGrow: 1, p: 2, maxWidth: "90%", margin: "0 auto" }}>
       <Grid2 container spacing={3}>
         {members.map((member) => (
-          <Grid2 xs={12} sm={6} md={4} lg={3} key={member.id}>
+          <Grid2
+            key={member.id}
+            // direction={"row"}
+            size={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+          >
             <Link
               to={`/detail/${member.login}`}
               style={{ textDecoration: "none" }}

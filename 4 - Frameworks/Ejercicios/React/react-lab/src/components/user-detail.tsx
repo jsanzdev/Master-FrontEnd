@@ -150,7 +150,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
 
         <Grid2 container spacing={3}>
           {repos.map((repo) => (
-            <Grid2 xs={12} sm={6} md={4} lg={3} key={repo.id}>
+            <Grid2 size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={repo.id}>
               <Card sx={{ height: "100%" }}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
