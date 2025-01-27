@@ -51,12 +51,15 @@ export const UserDetail: FC<Props> = ({ username }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [repoPage, setRepoPage] = useState(1);
+  const [rateLimitError, setRateLimitError] = useState<boolean>(false);
   const reposPerPage = 12;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        setError(null);
+        setRateLimitError(false);
         const [userResponse, reposResponse, orgsResponse, starredResponse] =
           await Promise.all([
             fetch(`https://api.github.com/users/${username}`),
@@ -64,6 +67,11 @@ export const UserDetail: FC<Props> = ({ username }) => {
             fetch(`https://api.github.com/users/${username}/orgs`),
             fetch(`https://api.github.com/users/${username}/starred`),
           ]);
+
+        if (userResponse.status === 403 || reposResponse.status === 403) {
+          setRateLimitError(true);
+          return;
+        }
 
         const userData = await userResponse.json();
         const reposData = await reposResponse.json();
@@ -97,6 +105,12 @@ export const UserDetail: FC<Props> = ({ username }) => {
   );
 
   if (loading) return <CircularProgress />;
+  if (rateLimitError)
+    return (
+      <Typography color="error" sx={{ p: 3 }}>
+        API rate limit exceeded. Please try again later.
+      </Typography>
+    );
   if (error) return <Typography color="error">{error}</Typography>;
   if (!user) return <Typography>No user data available</Typography>;
 
