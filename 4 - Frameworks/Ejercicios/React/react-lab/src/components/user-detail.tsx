@@ -87,18 +87,6 @@ export const UserDetail: FC<Props> = ({ username }) => {
 
   return (
     <Container maxWidth={false} sx={{ height: "100vh", p: 0 }}>
-      <Button
-        onClick={() => navigate(-1)}
-        variant="contained"
-        sx={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          zIndex: 1,
-        }}
-      >
-        Back to List
-      </Button>
       <Box
         sx={{
           py: 4,
@@ -179,6 +167,18 @@ export const UserDetail: FC<Props> = ({ username }) => {
           ))}
         </Grid2>
       </Box>
+      <Button
+        onClick={() => navigate(-1)}
+        variant="contained"
+        sx={{
+          position: "fixed",
+          bottom: 20,
+          left: 20,
+          zIndex: 1,
+        }}
+      >
+        Back to List
+      </Button>
     </Container>
   );
 };
