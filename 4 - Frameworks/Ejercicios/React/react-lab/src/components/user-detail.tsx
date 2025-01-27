@@ -11,6 +11,7 @@ import {
   Container,
   CircularProgress,
   Button,
+  Pagination,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
@@ -42,13 +43,15 @@ interface Props {
 }
 
 export const UserDetail: FC<Props> = ({ username }) => {
+  const navigate = useNavigate();
   const [repos, setRepos] = useState<Repository[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [orgs, setOrgs] = useState<Organization[]>([]);
   const [starred, setStarred] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const [repoPage, setRepoPage] = useState(1);
+  const reposPerPage = 12;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,12 +84,39 @@ export const UserDetail: FC<Props> = ({ username }) => {
     fetchData();
   }, [username]);
 
+  const handleRepoPageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setRepoPage(value);
+  };
+
+  const paginatedRepos = repos.slice(
+    (repoPage - 1) * reposPerPage,
+    repoPage * reposPerPage
+  );
+
   if (loading) return <CircularProgress />;
   if (error) return <Typography color="error">{error}</Typography>;
   if (!user) return <Typography>No user data available</Typography>;
 
   return (
-    <Container maxWidth={false} sx={{ height: "100vh", p: 0 }}>
+    <Container
+      maxWidth={false}
+      sx={{ height: "100vh", p: 0, position: "relative" }}
+    >
+      <Button
+        onClick={() => navigate(-1)}
+        variant="contained"
+        sx={{
+          position: "absolute",
+          bottom: 20,
+          left: 20,
+          zIndex: 1,
+        }}
+      >
+        Back to List
+      </Button>
       <Box
         sx={{
           py: 4,
@@ -137,7 +167,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
         </Typography>
 
         <Grid2 container spacing={3}>
-          {repos.map((repo) => (
+          {paginatedRepos.map((repo) => (
             <Grid2 size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={repo.id}>
               <Card sx={{ height: "100%" }}>
                 <CardContent>
@@ -166,19 +196,16 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Grid2>
           ))}
         </Grid2>
+
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
+          <Pagination
+            count={Math.ceil(repos.length / reposPerPage)}
+            page={repoPage}
+            onChange={handleRepoPageChange}
+            color="primary"
+          />
+        </Box>
       </Box>
-      <Button
-        onClick={() => navigate(-1)}
-        variant="contained"
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          left: 20,
-          zIndex: 1,
-        }}
-      >
-        Back to List
-      </Button>
     </Container>
   );
 };
