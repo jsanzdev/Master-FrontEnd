@@ -15,6 +15,7 @@ export const ListPage: FC = () => {
   );
   const [page, setPage] = useState(1);
   const itemsPerPage = 12;
+  const [rateLimitError, setRateLimitError] = useState<boolean>(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,9 +36,19 @@ export const ListPage: FC = () => {
   };
 
   const fetchMembers = () => {
+    setRateLimitError(false);
     fetch(`https://api.github.com/orgs/${currentSearch}/members`)
-      .then((response) => response.json())
-      .then((json) => setMembers(json));
+      .then((response) => {
+        if (response.status === 403) {
+          setRateLimitError(true);
+          throw new Error("Rate limit exceeded");
+        }
+        return response.json();
+      })
+      .then((json) => setMembers(json))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   useEffect(() => {
@@ -51,48 +62,56 @@ export const ListPage: FC = () => {
 
   return (
     <>
-      <Typography
-        variant="h4"
-        sx={{
-          textAlign: "center",
-          mb: 3,
-          mt: 2,
-        }}
-      >
-        Github Organizations Search
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          mb: 2,
-          display: "flex",
-          justifyContent: "center",
-          maxWidth: "90%",
-          margin: "0 auto",
-        }}
-      >
-        <TextField
-          value={organization}
-          onChange={handleInputChange}
-          label="Organization"
-          variant="outlined"
-          size="small"
-          sx={{ mr: 1 }}
-        />
-        <Button type="submit" variant="contained">
-          Search
-        </Button>
-      </Box>
-      <MemberList members={paginatedMembers} />
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
-        <Pagination
-          count={Math.ceil(members.length / itemsPerPage)}
-          page={page}
-          onChange={handlePageChange}
-          color="primary"
-        />
-      </Box>
+      {rateLimitError ? (
+        <Typography color="error" sx={{ p: 3, textAlign: "center" }}>
+          API rate limit exceeded. Please try again later.
+        </Typography>
+      ) : (
+        <>
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              mb: 3,
+              mt: 2,
+            }}
+          >
+            Github Organizations Search
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              mb: 2,
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "90%",
+              margin: "0 auto",
+            }}
+          >
+            <TextField
+              value={organization}
+              onChange={handleInputChange}
+              label="Organization"
+              variant="outlined"
+              size="small"
+              sx={{ mr: 1 }}
+            />
+            <Button type="submit" variant="contained">
+              Search
+            </Button>
+          </Box>
+          <MemberList members={paginatedMembers} />
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
+            <Pagination
+              count={Math.ceil(members.length / itemsPerPage)}
+              page={page}
+              onChange={handlePageChange}
+              color="primary"
+            />
+          </Box>
+        </>
+      )}
     </>
   );
 };
