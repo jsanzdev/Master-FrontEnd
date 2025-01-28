@@ -6,21 +6,35 @@ import { HomePage } from "./home";
 import { LoginPage } from "./login";
 import { ListPage } from "./list";
 import { DetailPage } from "./detail";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
 
 export const App: FC = () => {
   return (
-    <Router>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
-        </Routes>
-      </Box>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+            bgcolor: "background.default",
+          }}
+        >
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/list" element={<ListPage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
+          </Routes>
+        </Box>
+      </Router>
+    </ThemeProvider>
   );
 };

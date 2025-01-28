@@ -69,7 +69,8 @@ export const ListPage: FC = () => {
       ) : (
         <>
           <Typography
-            variant="h4"
+            variant="h3"
+            color="primary"
             sx={{
               textAlign: "center",
               mb: 3,

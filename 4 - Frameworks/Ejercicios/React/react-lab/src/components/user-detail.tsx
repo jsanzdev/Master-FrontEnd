@@ -146,7 +146,9 @@ export const UserDetail: FC<Props> = ({ username }) => {
             sx={{ width: 100, height: 100, mr: 3 }}
           />
           <Box>
-            <Typography variant="h4">{user.name || user.login}</Typography>
+            <Typography variant="h4" color="primary">
+              {user.name || user.login}
+            </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
               {user.bio}
             </Typography>
@@ -176,7 +178,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
           </Box>
         </Box>
 
-        <Typography variant="h5" sx={{ mb: 3 }}>
+        <Typography variant="h5" color="secondary" sx={{ mb: 3 }}>
           Repositories
         </Typography>
 
