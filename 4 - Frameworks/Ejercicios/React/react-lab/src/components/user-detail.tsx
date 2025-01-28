@@ -115,10 +115,7 @@ export const UserDetail: FC<Props> = ({ username }) => {
   if (!user) return <Typography>No user data available</Typography>;
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{ height: "100vh", p: 0, position: "relative" }}
-    >
+    <>
       <Button
         onClick={() => navigate(-1)}
         variant="contained"
@@ -212,16 +209,15 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Grid2>
           ))}
         </Grid2>
-
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
-          <Pagination
-            count={Math.ceil(repos.length / reposPerPage)}
-            page={repoPage}
-            onChange={handleRepoPageChange}
-            color="primary"
-          />
-        </Box>
       </Box>
-    </Container>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
+        <Pagination
+          count={Math.ceil(repos.length / reposPerPage)}
+          page={repoPage}
+          onChange={handleRepoPageChange}
+          color="primary"
+        />
+      </Box>
+    </>
   );
 };
