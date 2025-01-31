@@ -137,7 +137,13 @@ export const UserDetail: FC<Props> = ({ username }) => {
           flexDirection: "column",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 4,
+          }}
+        >
           <Avatar
             src={user.avatar_url}
             sx={{ width: 100, height: 100, mr: 3 }}
@@ -209,14 +215,21 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Grid2>
           ))}
         </Grid2>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
-        <Pagination
-          count={Math.ceil(repos.length / reposPerPage)}
-          page={repoPage}
-          onChange={handleRepoPageChange}
-          color="primary"
-        />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 4,
+            mb: 4,
+          }}
+        >
+          <Pagination
+            count={Math.ceil(repos.length / reposPerPage)}
+            page={repoPage}
+            onChange={handleRepoPageChange}
+            color="primary"
+          />
+        </Box>
       </Box>
     </>
   );
