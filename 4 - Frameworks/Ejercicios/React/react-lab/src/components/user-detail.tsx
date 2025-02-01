@@ -114,6 +114,8 @@ export const UserDetail: FC<Props> = ({ username }) => {
   if (error) return <Typography color="error">{error}</Typography>;
   if (!user) return <Typography>No user data available</Typography>;
 
+  // Todo Move this to different components.
+
   return (
     <>
       <Button
