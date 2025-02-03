@@ -29,7 +29,7 @@ export const ListPage: FC = () => {
   };
 
   const handlePageChange = (
-    // event: React.ChangeEvent<unknown>,
+    event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     setPage(value);
