@@ -27,7 +27,7 @@ export const MemberList: FC<Props> = ({ members }) => {
           <Grid2
             key={member.id}
             // direction={"row"}
-            size={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+            size={{ xs: 6, sm: 4, md: 3, lg: 2, xl: 2 }}
           >
             <Link
               to={`/detail/${member.login}`}
@@ -35,7 +35,7 @@ export const MemberList: FC<Props> = ({ members }) => {
             >
               <Card
                 sx={{
-                  height: "100%",
+                  // height: 280,
                   display: "flex",
                   flexDirection: "column",
                   transition: "0.3s",
@@ -48,7 +48,7 @@ export const MemberList: FC<Props> = ({ members }) => {
                 <CardMedia
                   component="img"
                   sx={{
-                    height: 200,
+                    // height: "70",
                     objectFit: "cover",
                   }}
                   image={member.avatar_url}
