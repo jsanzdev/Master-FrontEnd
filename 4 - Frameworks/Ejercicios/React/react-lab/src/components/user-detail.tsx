@@ -16,6 +16,7 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
 import BusinessIcon from "@mui/icons-material/Business";
+import { getUser, getUserRepos, getUserOrgs, getUserStarred } from "../api";
 
 interface Repository {
   id: number;
@@ -60,30 +61,24 @@ export const UserDetail: FC<Props> = ({ username }) => {
         setLoading(true);
         setError(null);
         setRateLimitError(false);
-        const [userResponse, reposResponse, orgsResponse, starredResponse] =
-          await Promise.all([
-            fetch(`https://api.github.com/users/${username}`),
-            fetch(`https://api.github.com/users/${username}/repos`),
-            fetch(`https://api.github.com/users/${username}/orgs`),
-            fetch(`https://api.github.com/users/${username}/starred`),
-          ]);
 
-        if (userResponse.status === 403 || reposResponse.status === 403) {
-          setRateLimitError(true);
-          return;
-        }
-
-        const userData = await userResponse.json();
-        const reposData = await reposResponse.json();
-        const orgsData = await orgsResponse.json();
-        const starredData = await starredResponse.json();
+        const [userData, reposData, orgsData, starredData] = await Promise.all([
+          getUser(username),
+          getUserRepos(username),
+          getUserOrgs(username),
+          getUserStarred(username),
+        ]);
 
         setUser(userData);
         setRepos(reposData);
         setOrgs(orgsData);
         setStarred(starredData.length);
-      } catch (err) {
-        setError("Error fetching data");
+      } catch (err: any) {
+        if (err.message.includes("403")) {
+          setRateLimitError(true);
+        } else {
+          setError("Error fetching data");
+        }
       } finally {
         setLoading(false);
       }
