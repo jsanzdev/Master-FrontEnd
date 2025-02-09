@@ -4,27 +4,15 @@ import {
   Avatar,
   Box,
   Typography,
-  Grid2,
-  Card,
-  CardContent,
   Chip,
-  Container,
   CircularProgress,
   Button,
-  Pagination,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
 import BusinessIcon from "@mui/icons-material/Business";
-import { getUser, getUserRepos, getUserOrgs, getUserStarred } from "../api";
-
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  language: string;
-  stargazers_count: number;
-}
+import { getUser, getUserOrgs, getUserRepos, getUserStarred } from "../api";
+import { RepoList } from "./repo-list";
 
 interface Organization {
   login: string;
@@ -37,6 +25,14 @@ interface User {
   login: string;
   bio: string;
   followers: number;
+}
+
+interface Repository {
+  id: number;
+  name: string;
+  description: string;
+  language: string;
+  stargazers_count: number;
 }
 
 interface Props {
@@ -109,8 +105,6 @@ export const UserDetail: FC<Props> = ({ username }) => {
   if (error) return <Typography color="error">{error}</Typography>;
   if (!user) return <Typography>No user data available</Typography>;
 
-  // Todo Move this to different components.
-
   return (
     <>
       <Button
@@ -146,10 +140,8 @@ export const UserDetail: FC<Props> = ({ username }) => {
             sx={{ width: 100, height: 100, mr: 3 }}
           />
           <Box>
-            <Typography variant="h4" color="primary">
-              {user.name || user.login}
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="h4">{user.name || user.login}</Typography>
+            <Typography variant="body1" sx={{ mb: 2 }}>
               {user.bio}
             </Typography>
             <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
@@ -177,56 +169,13 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Box>
           </Box>
         </Box>
-
-        <Typography variant="h5" color="secondary" sx={{ mb: 3 }}>
-          Repositories
-        </Typography>
-
-        <Grid2 container spacing={3}>
-          {paginatedRepos.map((repo) => (
-            <Grid2 size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={repo.id}>
-              <Card sx={{ height: "100%" }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {repo.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    {repo.description || "No description available"}
-                  </Typography>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    {repo.language && (
-                      <Chip label={repo.language} size="small" />
-                    )}
-                    <Chip
-                      icon={<StarIcon />}
-                      label={repo.stargazers_count}
-                      size="small"
-                    />
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid2>
-          ))}
-        </Grid2>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            mt: 4,
-            mb: 4,
-          }}
-        >
-          <Pagination
-            count={Math.ceil(repos.length / reposPerPage)}
-            page={repoPage}
-            onChange={handleRepoPageChange}
-            color="primary"
-          />
-        </Box>
+        <RepoList
+          paginatedRepos={paginatedRepos}
+          repoPage={repoPage}
+          handleRepoPageChange={handleRepoPageChange}
+          reposPerPage={reposPerPage}
+          reposLength={repos.length}
+        />
       </Box>
     </>
   );
