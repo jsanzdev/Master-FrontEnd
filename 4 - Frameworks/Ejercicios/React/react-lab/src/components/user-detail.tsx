@@ -141,8 +141,10 @@ export const UserDetail: FC<Props> = ({ username }) => {
             sx={{ width: 100, height: 100, mr: 3 }}
           />
           <Box>
-            <Typography variant="h4">{user.name || user.login}</Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
+            <Typography variant="h4" color="primary">
+              {user.name || user.login}
+            </Typography>
+            <Typography variant="body1" color="primary" sx={{ mb: 2 }}>
               {user.bio}
             </Typography>
             <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
@@ -170,8 +172,8 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Box>
           </Box>
         </Box>
-        <RepoList repos={paginatedRepos} />
       </Box>
+      <RepoList repos={paginatedRepos} />
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
         <Pagination
           count={Math.ceil(repos.length / reposPerPage)}

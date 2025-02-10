@@ -16,23 +16,16 @@ interface RepoListProps {
 
 export const RepoList: FC<RepoListProps> = ({ repos }) => {
   return (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+    <Box sx={{ flexGrow: 1, p: 2, maxWidth: "90%", margin: "0 auto" }}>
+      <Typography variant="h5" color="primary" sx={{ mb: 3 }}>
         Repositories
       </Typography>
 
       <Grid2 container spacing={3}>
         {repos.map((repo) => (
           <Grid2 size={{ xs: 12, sm: 4, md: 3, lg: 2, xl: 2 }} key={repo.id}>
-            <Card sx={{ height: 200 }}>
-              <CardContent
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
+            <Card sx={{ height: 250 }}>
+              <CardContent>
                 <Box>
                   <Typography variant="h6" noWrap gutterBottom>
                     {repo.name}
