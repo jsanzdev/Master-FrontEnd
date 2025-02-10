@@ -124,9 +124,10 @@ export const UserDetail: FC<Props> = ({ username }) => {
         sx={{
           py: 4,
           px: 2,
-          height: "100%",
+          maxWidth: "90%",
           display: "flex",
           flexDirection: "column",
+          margin: "0 auto",
         }}
       >
         <Box
