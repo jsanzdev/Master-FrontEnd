@@ -7,6 +7,7 @@ import {
   Chip,
   CircularProgress,
   Button,
+  Pagination,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PeopleIcon from "@mui/icons-material/People";
@@ -169,12 +170,14 @@ export const UserDetail: FC<Props> = ({ username }) => {
             </Box>
           </Box>
         </Box>
-        <RepoList
-          paginatedRepos={paginatedRepos}
-          repoPage={repoPage}
-          handleRepoPageChange={handleRepoPageChange}
-          reposPerPage={reposPerPage}
-          reposLength={repos.length}
+        <RepoList repos={paginatedRepos} />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
+        <Pagination
+          count={Math.ceil(repos.length / reposPerPage)}
+          page={repoPage}
+          onChange={handleRepoPageChange}
+          color="primary"
         />
       </Box>
     </>
