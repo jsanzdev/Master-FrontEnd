@@ -84,10 +84,10 @@ export const UserDetail: FC<Props> = ({ username }) => {
     fetchData();
   }, [username]);
 
-  const handleRepoPageChange = (
-    event: React.ChangeEvent<unknown>,
+  const handleRepoPageChange = function (
+    _event: React.ChangeEvent<unknown>,
     value: number
-  ) => {
+  ) {
     setRepoPage(value);
   };
 
