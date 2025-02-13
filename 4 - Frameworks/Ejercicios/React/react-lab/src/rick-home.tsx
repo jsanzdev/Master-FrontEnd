@@ -1,15 +1,7 @@
 import { FC, useState, useEffect, ChangeEvent } from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Pagination,
-  Card,
-  CardMedia,
-  CardContent,
-  Grid2,
-} from "@mui/material";
+import { TextField, Box, Typography, Pagination } from "@mui/material";
+import { CharacterList } from "./components/character-list";
+import { getCharacters } from "./rick-api";
 
 interface Character {
   id: number;
@@ -28,12 +20,13 @@ export const RickHome: FC = () => {
 
   useEffect(() => {
     const fetchCharacters = async () => {
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/?page=${page}&name=${searchTerm}`
-      );
-      const data = await response.json();
-      setCharacters(data.results || []);
-      setTotalPages(data.info?.pages || 1);
+      try {
+        const data = await getCharacters(page, searchTerm);
+        setCharacters(data.results || []);
+        setTotalPages(data.info?.pages || 1);
+      } catch (error) {
+        console.error("Error fetching characters:", error);
+      }
     };
 
     fetchCharacters();
@@ -41,7 +34,7 @@ export const RickHome: FC = () => {
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setPage(1);
+    setPage(1); // Reset page to 1 when search term changes
   };
 
   const handlePageChange = (
@@ -51,9 +44,14 @@ export const RickHome: FC = () => {
     setPage(value);
   };
 
+  const paginatedCharacters = characters.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography variant="h4" align="center" color="primary" gutterBottom>
         Rick and Morty Characters
       </Typography>
       <TextField
@@ -64,32 +62,7 @@ export const RickHome: FC = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <Grid2 container spacing={3}>
-        {characters.map((character) => (
-          <Grid2
-            key={character.id}
-            // direction={"row"}
-            size={{ xs: 6, sm: 4, md: 3, lg: 2, xl: 2 }}
-          >
-            <Card>
-              <CardMedia
-                component="img"
-                height="300"
-                image={character.image}
-                alt={character.name}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {character.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {character.species} - {character.status}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid2>
-        ))}
-      </Grid2>
+      <CharacterList characters={paginatedCharacters} />
       <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
         <Pagination
           count={totalPages}
