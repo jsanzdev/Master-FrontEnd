@@ -1,4 +1,5 @@
 import { FC, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import { TextField, Box, Typography, Pagination } from "@mui/material";
 import { CharacterList } from "./components/character-list";
 import { getCharacters } from "./rick-api";
@@ -13,9 +14,12 @@ interface Character {
 }
 
 export const RickHome: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [characters, setCharacters] = useState<Character[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [page, setPage] = useState(1);
+  const [inputValue, setInputValue] = useState(
+    searchParams.get("search") || ""
+  );
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
   const [totalPages, setTotalPages] = useState(1);
 
   const debouncedSearchTerm = useDebounce(inputValue, 500);
@@ -33,6 +37,13 @@ export const RickHome: FC = () => {
 
     fetchCharacters();
   }, [page, debouncedSearchTerm]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (debouncedSearchTerm) params.set("search", debouncedSearchTerm);
+    if (page > 1) params.set("page", String(page));
+    setSearchParams(params);
+  }, [debouncedSearchTerm, page, setSearchParams]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
