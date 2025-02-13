@@ -7,6 +7,7 @@ import { LoginPage } from "./login";
 import { ListPage } from "./list";
 import { DetailPage } from "./detail";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { RickHome } from "./rick-home";
 
 const theme = createTheme({
   colorSchemes: {
@@ -32,6 +33,7 @@ export const App: FC = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/list" element={<ListPage />} />
             <Route path="/detail/:id" element={<DetailPage />} />
+            <Route path="/rickandmorty" element={<RickHome />} />
           </Routes>
         </Box>
       </Router>
