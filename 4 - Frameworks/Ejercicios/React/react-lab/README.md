@@ -42,8 +42,8 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/react-lab.git
-cd react-lab
+git clone https://github.com/jsanzdev/Master-FrontEnd.git
+cd Master-FrontEnd/4\ -\ Frameworks/Ejercicios/React/react-lab/
 ```
 
 2. Install dependencies:
@@ -53,7 +53,7 @@ npm install
 
 3. Start the development server:
 ```bash
-npm start
+npm run dev
 ```
 
 ## Project Structure
