@@ -15,7 +15,6 @@ export const RickHome: FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
-  const itemsPerPage = 12;
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export const RickHome: FC = () => {
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setPage(1); // Reset page to 1 when search term changes
+    setPage(1);
   };
 
   const handlePageChange = (
@@ -43,11 +42,6 @@ export const RickHome: FC = () => {
   ) => {
     setPage(value);
   };
-
-  const paginatedCharacters = characters.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
-  );
 
   return (
     <Box sx={{ p: 3 }}>
@@ -62,7 +56,7 @@ export const RickHome: FC = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <CharacterList characters={paginatedCharacters} />
+      <CharacterList characters={characters} />
       <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
         <Pagination
           count={totalPages}

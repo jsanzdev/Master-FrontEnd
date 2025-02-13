@@ -20,17 +20,27 @@ export const CharacterList: FC<CharacterListProps> = ({ characters }) => {
         <Grid2
           key={character.id}
           // direction={"row"}
-          size={{ xs: 6, sm: 4, md: 3, lg: 2, xl: 2 }}
+          size={{ xs: 6, sm: 4, md: 3, lg: 2, xl: 1.2 }}
         >
-          <Card>
+          <Card
+            sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+          >
             <CardMedia
               component="img"
-              height="300"
+              height="250"
               image={character.image}
               alt={character.name}
             />
-            <CardContent>
-              <Typography variant="h6" component="div">
+            <CardContent
+              sx={{
+                textAlign: "center",
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="h6" component="div" noWrap>
                 {character.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
