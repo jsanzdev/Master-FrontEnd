@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { FC, useState, useEffect, ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { TextField, Box, Typography, Pagination } from "@mui/material";
 import { CharacterList } from "./components/character-list";
