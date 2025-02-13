@@ -1,50 +1,79 @@
-# React + TypeScript + Vite
+# React Lab - GitHub & Rick and Morty Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+### GitHub User Explorer
+- 🔍 Search GitHub users by username
+- 👤 View user details:
+  - Profile information
+  - Followers count
+  - Starred repositories count
+  - Organizations
+- 📚 Repository list with pagination
+- 📑 Repository cards showing:
+  - Repository name and description
+  - Primary language
+  - Star count
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Rick and Morty Character Explorer
+- 🎬 Browse Rick and Morty characters
+- ⚡ Features:
+  - Debounced character search
+  - Pagination with URL state
+  - Responsive grid layout
+  - Shareable search URLs
+- 🎭 Character detail view with:
+  - Character image and name
+  - Status (with color indicators)
+  - Species and gender
+  - Origin and current location
+  - Episode appearance count
 
-## Expanding the ESLint configuration
+## Technical Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- ⚛️ React 18 with TypeScript
+- 🛠️ Material-UI components
+- 🧪 Custom hooks (useDebounce)
+- 🔄 React Router v6
+- 📱 Responsive design
+- 🔗 URL parameter management
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/react-lab.git
+cd react-lab
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
 ```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── character-detail.tsx
+│   ├── character-list.tsx
+│   ├── repo-list.tsx
+│   └── user-detail.tsx
+├── hooks/
+│   └── use-debounce.ts
+├── rick-home.tsx
+├── rick-detail.tsx
+├── rick-api.ts
+└── router.tsx
+```
+
+## API Integration
+
+- **GitHub API**: User data and repositories
+- **Rick and Morty API**: Character information
