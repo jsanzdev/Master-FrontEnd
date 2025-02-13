@@ -1,7 +1,8 @@
-import { FC, useState, useEffect, ChangeEvent } from "react";
+import { FC, useState, useEffect, ChangeEvent, useCallback } from "react";
 import { TextField, Box, Typography, Pagination } from "@mui/material";
 import { CharacterList } from "./components/character-list";
 import { getCharacters } from "./rick-api";
+import { useDebounce } from "./hooks/use-debounce";
 
 interface Character {
   id: number;
@@ -13,14 +14,16 @@ interface Character {
 
 export const RickHome: FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const debouncedSearchTerm = useDebounce(inputValue, 500);
 
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
-        const data = await getCharacters(page, searchTerm);
+        const data = await getCharacters(page, debouncedSearchTerm);
         setCharacters(data.results || []);
         setTotalPages(data.info?.pages || 1);
       } catch (error) {
@@ -29,10 +32,10 @@ export const RickHome: FC = () => {
     };
 
     fetchCharacters();
-  }, [page, searchTerm]);
+  }, [page, debouncedSearchTerm]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setInputValue(event.target.value);
     setPage(1);
   };
 
@@ -53,7 +56,7 @@ export const RickHome: FC = () => {
         variant="outlined"
         fullWidth
         margin="normal"
-        value={searchTerm}
+        value={inputValue}
         onChange={handleSearchChange}
       />
       <CharacterList characters={characters} />
