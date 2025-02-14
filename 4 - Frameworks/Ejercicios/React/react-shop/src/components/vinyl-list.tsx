@@ -1,6 +1,6 @@
 import { FC } from "react";
 import {
-  Grid,
+  Grid2,
   Card,
   CardMedia,
   CardContent,
@@ -16,9 +16,9 @@ export const VinylList: FC<VinylListProps> = ({ onAddToCart, cartItems }) => {
   const isInCart = (id: string) => cartItems.some((item) => item.id === id);
 
   return (
-    <Grid container spacing={3}>
+    <Grid2 container spacing={3}>
       {vinyls.map((vinyl) => (
-        <Grid item xs={12} sm={6} md={4} key={vinyl.id}>
+        <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={vinyl.id}>
           <Card>
             <Box sx={{ position: "relative" }}>
               <CardMedia
@@ -72,8 +72,8 @@ export const VinylList: FC<VinylListProps> = ({ onAddToCart, cartItems }) => {
               </Box>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid2>
       ))}
-    </Grid>
+    </Grid2>
   );
 };
