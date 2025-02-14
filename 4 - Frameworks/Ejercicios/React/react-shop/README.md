@@ -1,50 +1,102 @@
-# React + TypeScript + Vite
+# Vinyl Shop - React Shopping Cart Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+### Product Display
+- 🎵 Browse vinyl records in a responsive grid layout
+- 🖼️ Product cards with:
+  - Album cover
+  - Title and artist
+  - Price
+  - Add to cart button
+  - Cart status indicator
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Shopping Cart
+- 🛒 Floating cart button with item count
+- 📝 Slide-in cart panel with:
+  - Item list
+  - Quantity adjustments
+  - Remove items
+  - Clear cart option
+  - Total price calculation
+  - Proceed to checkout button
 
-## Expanding the ESLint configuration
+### Checkout Process
+- 🛍️ Multi-step checkout flow:
+  1. Cart Review
+  2. Shipping Information
+  3. Payment Details
+- 📋 Form validation
+- 🔄 Progress tracking
+- 💳 Order summary
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technical Stack
 
-- Configure the top-level `parserOptions` property like this:
+- ⚛️ React 19
+- 📦 TypeScript
+- 🎨 Material-UI (MUI)
+- 🔧 Component-based architecture
+- 📱 Responsive design
+- 🗃️ State management with React hooks
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── cart.tsx
+│   ├── checkout.tsx
+│   └── vinyl-list.tsx
+├── types/
+│   └── types.ts
+└── App.tsx
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Getting Started
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+1. Clone the repository:
+```bash
+git clone https://github.com/jsanzdev/Master-FrontEnd.git
+cd Master-FrontEnd/4\ -\ Frameworks/Ejercicios/React/react-shop/
 ```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+## Component Overview
+
+### App.tsx
+- Main application layout
+- Cart state management
+- Routing and navigation
+
+### VinylList
+- Displays product grid
+- Handles add to cart functionality
+- Shows cart status per item
+
+### Cart
+- Manages cart interactions
+- Quantity updates
+- Item removal
+- Checkout initiation
+
+### Checkout
+- Multi-step form process
+- Address collection
+- Payment information
+- Order summary
+
+## State Management
+
+- Cart items state
+- Cart visibility
+- Checkout process state
+- Form data management
