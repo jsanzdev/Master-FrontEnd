@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Box, Grid2 } from "@mui/material";
+import { Box, Grid2, Fab, Drawer, Badge } from "@mui/material";
 import { VinylList } from "./components/vinyl-list";
 import { Cart } from "./components/cart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export interface CartItem {
   id: string;
@@ -13,6 +14,13 @@ export interface CartItem {
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
     setCartItems((current) => {
@@ -38,18 +46,40 @@ function App() {
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
-      <Grid2>
+      <Grid2 container>
         <Grid2>
           <VinylList onAddToCart={addToCart} />
         </Grid2>
-        <Grid2>
-          <Cart
-            items={cartItems}
-            onRemove={removeFromCart}
-            onUpdateQuantity={updateQuantity}
-          />
-        </Grid2>
       </Grid2>
+
+      <Fab
+        color="primary"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        onClick={toggleCart}
+      >
+        <Badge badgeContent={totalItems} color="error">
+          <ShoppingCartIcon />
+        </Badge>
+      </Fab>
+
+      <Drawer
+        anchor="right"
+        open={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: { xs: "100%", sm: 400 },
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <Cart
+          items={cartItems}
+          onRemove={removeFromCart}
+          onUpdateQuantity={updateQuantity}
+          onClose={() => setIsCartOpen(false)}
+        />
+      </Drawer>
     </Box>
   );
 }
