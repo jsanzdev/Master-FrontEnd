@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
-import { CartItem } from "../App";
+import { CartItem } from "../types/types";
 
 interface CartProps {
   items: CartItem[];

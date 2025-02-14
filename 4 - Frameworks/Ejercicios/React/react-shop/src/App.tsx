@@ -3,14 +3,7 @@ import { Box, Grid2, Fab, Drawer, Badge } from "@mui/material";
 import { VinylList } from "./components/vinyl-list";
 import { Cart } from "./components/cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-export interface CartItem {
-  id: string;
-  title: string;
-  artist: string;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from "./types/types";
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -48,7 +41,10 @@ function App() {
     <Box sx={{ flexGrow: 1, p: 3 }}>
       <Grid2 container>
         <Grid2>
-          <VinylList onAddToCart={addToCart} />
+          <VinylList
+            onAddToCart={addToCart}
+            cartItems={cartItems} // Add this prop
+          />
         </Grid2>
       </Grid2>
 

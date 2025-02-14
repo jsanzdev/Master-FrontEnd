@@ -7,57 +7,46 @@ import {
   Typography,
   Button,
   Box,
+  Badge,
 } from "@mui/material";
-import { CartItem } from "../App";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { vinyls } from "../data/vinyls";
+import { VinylListProps } from "../types/types";
 
-const vinyls = [
-  {
-    id: "1",
-    title: "From Zero",
-    artist: "Linkin Park",
-    price: 29.99,
-    image: "/img/linkin_park_vinyl.webp",
-  },
-  {
-    id: "2",
-    title: "The Dark Side of the Moon",
-    artist: "Pink Floyd",
-    price: 39.99,
-    image: "/img/dark-side.webp",
-  },
-  {
-    id: "3",
-    title: "Back in Black",
-    artist: "AC/DC",
-    price: 24.99,
-    image: "/img/ACDC-BiB.webp",
-  },
-  {
-    id: "4",
-    title: "Thriller",
-    artist: "Michael Jackson",
-    price: 19.99,
-    image: "/img/thriller.webp",
-  },
-  // Add more vinyls here
-];
+export const VinylList: FC<VinylListProps> = ({ onAddToCart, cartItems }) => {
+  const isInCart = (id: string) => cartItems.some((item) => item.id === id);
 
-interface VinylListProps {
-  onAddToCart: (item: Omit<CartItem, "quantity">) => void;
-}
-
-export const VinylList: FC<VinylListProps> = ({ onAddToCart }) => {
   return (
     <Grid container spacing={3}>
       {vinyls.map((vinyl) => (
         <Grid item xs={12} sm={6} md={4} key={vinyl.id}>
           <Card>
-            <CardMedia
-              component="img"
-              height="200"
-              image={vinyl.image}
-              alt={vinyl.title}
-            />
+            <Box sx={{ position: "relative" }}>
+              <CardMedia
+                component="img"
+                height="200"
+                image={vinyl.image}
+                alt={vinyl.title}
+              />
+              {isInCart(vinyl.id) && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    bgcolor: "primary.main",
+                    borderRadius: "50%",
+                    width: 32,
+                    height: 32,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ShoppingCartIcon sx={{ color: "white", fontSize: 20 }} />
+                </Box>
+              )}
+            </Box>
             <CardContent>
               <Typography gutterBottom variant="h6" component="div">
                 {vinyl.title}
@@ -74,8 +63,12 @@ export const VinylList: FC<VinylListProps> = ({ onAddToCart }) => {
                 }}
               >
                 <Typography variant="h6">${vinyl.price}</Typography>
-                <Button variant="contained" onClick={() => onAddToCart(vinyl)}>
-                  Add to Cart
+                <Button
+                  variant="contained"
+                  onClick={() => onAddToCart(vinyl)}
+                  startIcon={isInCart(vinyl.id) ? <ShoppingCartIcon /> : null}
+                >
+                  {isInCart(vinyl.id) ? "Add More" : "Add to Cart"}
                 </Button>
               </Box>
             </CardContent>
