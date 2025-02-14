@@ -4,10 +4,12 @@ import { VinylList } from "./components/vinyl-list";
 import { Cart } from "./components/cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartItem } from "./types/types";
+import { Checkout } from "./components/checkout";
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -39,6 +41,11 @@ function App() {
     setCartItems((current) =>
       current.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
+  };
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
   };
 
   return (
@@ -92,7 +99,21 @@ function App() {
           onUpdateQuantity={updateQuantity}
           onClose={() => setIsCartOpen(false)}
           onClearCart={clearCart}
+          onCheckout={handleCheckout}
         />
+      </Drawer>
+      <Drawer
+        anchor="right"
+        open={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: { xs: "100%", sm: 600 },
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <Checkout items={cartItems} onClose={() => setIsCheckoutOpen(false)} />
       </Drawer>
     </Box>
   );

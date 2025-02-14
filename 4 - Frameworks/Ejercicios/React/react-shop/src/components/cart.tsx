@@ -26,6 +26,7 @@ export const Cart: FC<CartProps> = ({
   onUpdateQuantity,
   onClose,
   onClearCart,
+  onCheckout,
 }) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -109,6 +110,16 @@ export const Cart: FC<CartProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
+      <Box sx={{ p: 2, borderTop: 1, borderColor: "divider" }}>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={onCheckout}
+          disabled={items.length === 0}
+        >
+          Proceed to Checkout
+        </Button>
+      </Box>
     </>
   );
 };
