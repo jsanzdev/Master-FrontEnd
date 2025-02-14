@@ -7,7 +7,6 @@ import {
   Typography,
   Button,
   Box,
-  Badge,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { vinyls } from "../data/vinyls";

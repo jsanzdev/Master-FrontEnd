@@ -13,6 +13,10 @@ function App() {
     setIsCartOpen(!isCartOpen);
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
@@ -74,6 +78,7 @@ function App() {
           onRemove={removeFromCart}
           onUpdateQuantity={updateQuantity}
           onClose={() => setIsCartOpen(false)}
+          onClearCart={clearCart}
         />
       </Drawer>
     </Box>
