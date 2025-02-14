@@ -63,10 +63,19 @@ src/
 ├── components/
 │   ├── character-detail.tsx
 │   ├── character-list.tsx
+│   ├── header.tsx
+│   ├── member-list.tsx
 │   ├── repo-list.tsx
 │   └── user-detail.tsx
 ├── hooks/
 │   └── use-debounce.ts
+├── api.ts
+├── App.tsx
+├── detail.tsx
+├── home.tsx
+├── index.css
+├── login.tsx
+├── main.tsx
 ├── rick-home.tsx
 ├── rick-detail.tsx
 ├── rick-api.ts
