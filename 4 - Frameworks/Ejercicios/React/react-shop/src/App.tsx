@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Grid2, Fab, Drawer, Badge } from "@mui/material";
+import { Box, Grid2, Fab, Drawer, Badge, Typography } from "@mui/material";
 import { VinylList } from "./components/vinyl-list";
 import { Cart } from "./components/cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -43,12 +43,25 @@ function App() {
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
+      <Typography
+        variant="h2"
+        component="h1"
+        gutterBottom
+        align="center"
+        sx={{
+          mb: 4,
+          fontWeight: "bold",
+          color: "primary.main",
+          borderBottom: "2px solid",
+          borderColor: "primary.main",
+          pb: 2,
+        }}
+      >
+        Vinyl Shop
+      </Typography>
       <Grid2 container>
         <Grid2>
-          <VinylList
-            onAddToCart={addToCart}
-            cartItems={cartItems} // Add this prop
-          />
+          <VinylList onAddToCart={addToCart} cartItems={cartItems} />
         </Grid2>
       </Grid2>
 
