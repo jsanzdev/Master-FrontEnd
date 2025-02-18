@@ -8,3 +8,17 @@
 
 
 # 1. Moodboard
+
+
+
+
+# 2. Crazy
+
+
+
+# 3. Mockup
+
+
+
+# 4. Figma
+Figma Project: https://www.figma.com/design/rGRNZCS8TsuUBCt6zOlXUF/WebAPP?node-id=0-1&t=rW83xe9ivdxMdU58-1
