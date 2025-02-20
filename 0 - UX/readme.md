@@ -13,7 +13,7 @@ https://www.figma.com/board/uy3x4NSYQk9FI2Dt3BtXxY/Prototipado?node-id=4-28&t=hz
 
 
 # 2. Crazy
-
+This is just a commit to not lose the streak.
 
 
 # 3. Mockup
