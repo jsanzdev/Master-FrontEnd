@@ -2,34 +2,25 @@
     <div class="container">
         <h1>Todo App</h1>
         <TodoInput @add-todo="addTodo" />
-        <TodoList :todos="todos" @toggle="toggleTodo" @delete="deleteTodo" />
+        <TodoList :todos="store.todos" @toggle="toggleTodo" @delete="deleteTodo" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Todo } from '~/types/index.ts'
+import { useTodoStore } from '~/stores/todo-store'
 
-const todos = ref<Todo[]>([])
+const store = useTodoStore()
 
 const addTodo = (title: string) => {
-    todos.value.push({
-        id: Date.now(),
-        title,
-        completed: false,
-        createdAt: new Date()
-    })
+    store.addTodo(title)
 }
 
 const toggleTodo = (id: number) => {
-    const todo = todos.value.find((t: { id: number }) => t.id === id)
-    if (todo) {
-        todo.completed = !todo.completed
-    }
+    store.toggleTodo(id)
 }
 
 const deleteTodo = (id: number) => {
-    todos.value = todos.value.filter((t: { id: number }) => t.id !== id)
+    store.deleteTodo(id)
 }
 </script>
 
@@ -43,6 +34,5 @@ const deleteTodo = (id: number) => {
 h1 {
     text-align: center;
     color: #2c3e50;
-    margin-bottom: 2rem;
 }
 </style>
