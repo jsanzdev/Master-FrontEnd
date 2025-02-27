@@ -6,6 +6,7 @@ export const useTodoStore = defineStore(
   "todos",
   () => {
     const todos = ref<Todo[]>([]);
+    const editingId = ref<number | null>(null);
 
     const addTodo = (title: string) => {
       todos.value.push({
@@ -27,11 +28,31 @@ export const useTodoStore = defineStore(
       todos.value = todos.value.filter((t) => t.id !== id);
     };
 
+    const editTodo = (id: number, newTitle: string) => {
+      const todo = todos.value.find((t) => t.id === id);
+      if (todo) {
+        todo.title = newTitle;
+      }
+      editingId.value = null;
+    };
+
+    const startEditing = (id: number) => {
+      editingId.value = id;
+    };
+
+    const cancelEditing = () => {
+      editingId.value = null;
+    };
+
     return {
       todos,
+      editingId,
       addTodo,
       toggleTodo,
       deleteTodo,
+      editTodo,
+      startEditing,
+      cancelEditing,
     };
   },
   {
