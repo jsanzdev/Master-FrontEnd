@@ -3,7 +3,7 @@
         <h1>Todo App</h1>
         <TodoInput @add-todo="addTodo" />
         <TodoFilter />
-        <TodoList :todos="store.todos" @toggle="toggleTodo" @delete="deleteTodo" />
+        <TodoList :todos="store.filteredTodos" @toggle="toggleTodo" @delete="deleteTodo" />
     </div>
 </template>
 
