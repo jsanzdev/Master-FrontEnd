@@ -5,4 +5,10 @@ export interface Todo {
   createdAt: Date;
 }
 
+export interface TodoList {
+  id: number;
+  name: string;
+  todos: Todo[];
+}
+
 export type FilterType = "all" | "active" | "completed";

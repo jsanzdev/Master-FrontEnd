@@ -1,14 +1,39 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import type { Todo, FilterType } from "~/types/index";
+import type { Todo, FilterType, TodoList } from "~/types/index";
 
 export const useTodoStore = defineStore(
   "todos",
   () => {
+    const lists = ref<TodoList[]>([{ id: 1, name: "Default List", todos: [] }]);
     const todos = ref<Todo[]>([]);
     const editingId = ref<number | null>(null);
     const filter = ref<FilterType>("all");
     const searchQuery = ref("");
+    const activeListId = ref<number | null>(1);
+
+    const activeList = computed(() =>
+      lists.value.find((list) => list.id === activeListId.value)
+    );
+
+    const addList = (name: string) => {
+      lists.value.push({
+        id: Date.now(),
+        name,
+        todos: [],
+      });
+    };
+
+    const deleteList = (id: number) => {
+      lists.value = lists.value.filter((list) => list.id !== id);
+      if (activeListId.value === id) {
+        activeListId.value = lists.value[0]?.id;
+      }
+    };
+
+    const setActiveList = (id: number) => {
+      activeListId.value = id;
+    };
 
     const filteredTodos = computed(() => {
       let filtered = todos.value;
@@ -30,12 +55,15 @@ export const useTodoStore = defineStore(
     });
 
     const addTodo = (title: string) => {
-      todos.value.push({
-        id: Date.now(),
-        title,
-        completed: false,
-        createdAt: new Date(),
-      });
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        list.todos.push({
+          id: Date.now(),
+          title,
+          completed: false,
+          createdAt: new Date(),
+        });
+      }
     };
 
     const toggleTodo = (id: number) => {
@@ -108,6 +136,12 @@ export const useTodoStore = defineStore(
       deleteAllTodos,
       completeAllTodos,
       uncompleteAllTodos,
+      addList,
+      deleteList,
+      setActiveList,
+      lists,
+      activeList,
+      activeListId,
     };
   },
   {
