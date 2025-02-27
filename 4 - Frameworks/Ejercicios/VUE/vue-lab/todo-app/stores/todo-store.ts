@@ -6,7 +6,6 @@ export const useTodoStore = defineStore(
   "todos",
   () => {
     const lists = ref<TodoList[]>([{ id: 1, name: "Default List", todos: [] }]);
-    const todos = ref<Todo[]>([]);
     const editingId = ref<number | null>(null);
     const filter = ref<FilterType>("all");
     const searchQuery = ref("");
@@ -34,6 +33,8 @@ export const useTodoStore = defineStore(
     const setActiveList = (id: number) => {
       activeListId.value = id;
     };
+
+    const todos = computed(() => activeList.value?.todos || []);
 
     const filteredTodos = computed(() => {
       let filtered = todos.value;
@@ -67,20 +68,29 @@ export const useTodoStore = defineStore(
     };
 
     const toggleTodo = (id: number) => {
-      const todo = todos.value.find((t) => t.id === id);
-      if (todo) {
-        todo.completed = !todo.completed;
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        const todo = list.todos.find((t) => t.id === id);
+        if (todo) {
+          todo.completed = !todo.completed;
+        }
       }
     };
 
     const deleteTodo = (id: number) => {
-      todos.value = todos.value.filter((t) => t.id !== id);
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        list.todos = list.todos.filter((t) => t.id !== id);
+      }
     };
 
     const editTodo = (id: number, newTitle: string) => {
-      const todo = todos.value.find((t) => t.id === id);
-      if (todo) {
-        todo.title = newTitle;
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        const todo = list.todos.find((t) => t.id === id);
+        if (todo) {
+          todo.title = newTitle;
+        }
       }
       editingId.value = null;
     };
@@ -102,21 +112,30 @@ export const useTodoStore = defineStore(
     };
 
     const deleteAllTodos = () => {
-      todos.value = [];
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        list.todos = [];
+      }
     };
 
     const completeAllTodos = () => {
-      todos.value = todos.value.map((todo) => ({
-        ...todo,
-        completed: true,
-      }));
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        list.todos = list.todos.map((todo) => ({
+          ...todo,
+          completed: true,
+        }));
+      }
     };
 
     const uncompleteAllTodos = () => {
-      todos.value = todos.value.map((todo) => ({
-        ...todo,
-        completed: false,
-      }));
+      const list = lists.value.find((l) => l.id === activeListId.value);
+      if (list) {
+        list.todos = list.todos.map((todo) => ({
+          ...todo,
+          completed: false,
+        }));
+      }
     };
 
     return {
