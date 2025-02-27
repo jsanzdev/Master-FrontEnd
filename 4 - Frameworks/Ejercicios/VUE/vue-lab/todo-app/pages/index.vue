@@ -2,6 +2,7 @@
     <div class="container">
         <h1>Todo App</h1>
         <TodoInput @add-todo="addTodo" />
+        <SearchBar />
         <TodoFilter />
         <TodoList :todos="store.filteredTodos" @toggle="toggleTodo" @delete="deleteTodo" />
     </div>

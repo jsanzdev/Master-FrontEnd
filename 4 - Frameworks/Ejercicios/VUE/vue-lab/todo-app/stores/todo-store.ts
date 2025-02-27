@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { Todo, FilterType } from "~/types/index";
 
 export const useTodoStore = defineStore(
@@ -8,15 +8,24 @@ export const useTodoStore = defineStore(
     const todos = ref<Todo[]>([]);
     const editingId = ref<number | null>(null);
     const filter = ref<FilterType>("all");
+    const searchQuery = ref("");
 
     const filteredTodos = computed(() => {
+      let filtered = todos.value;
+
+      if (searchQuery.value) {
+        filtered = filtered.filter((todo) =>
+          todo.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+      }
+
       switch (filter.value) {
         case "active":
-          return todos.value.filter((todo) => !todo.completed);
+          return filtered.value.filter((todo) => !todo.completed);
         case "completed":
-          return todos.value.filter((todo) => todo.completed);
+          return filtered.value.filter((todo) => todo.completed);
         default:
-          return todos.value;
+          return filtered;
       }
     });
 
@@ -60,6 +69,10 @@ export const useTodoStore = defineStore(
       filter.value = newFilter;
     };
 
+    const setSearchQuery = (query: string) => {
+      searchQuery.value = query;
+    };
+
     return {
       todos,
       editingId,
@@ -72,6 +85,8 @@ export const useTodoStore = defineStore(
       filter,
       filteredTodos,
       setFilter,
+      searchQuery,
+      setSearchQuery,
     };
   },
   {
