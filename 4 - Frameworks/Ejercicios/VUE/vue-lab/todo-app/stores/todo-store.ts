@@ -21,9 +21,9 @@ export const useTodoStore = defineStore(
 
       switch (filter.value) {
         case "active":
-          return filtered.value.filter((todo) => !todo.completed);
+          return filtered.filter((todo) => !todo.completed);
         case "completed":
-          return filtered.value.filter((todo) => todo.completed);
+          return filtered.filter((todo) => todo.completed);
         default:
           return filtered;
       }
@@ -73,6 +73,24 @@ export const useTodoStore = defineStore(
       searchQuery.value = query;
     };
 
+    const deleteAllTodos = () => {
+      todos.value = [];
+    };
+
+    const completeAllTodos = () => {
+      todos.value = todos.value.map((todo) => ({
+        ...todo,
+        completed: true,
+      }));
+    };
+
+    const uncompleteAllTodos = () => {
+      todos.value = todos.value.map((todo) => ({
+        ...todo,
+        completed: false,
+      }));
+    };
+
     return {
       todos,
       editingId,
@@ -87,6 +105,9 @@ export const useTodoStore = defineStore(
       setFilter,
       searchQuery,
       setSearchQuery,
+      deleteAllTodos,
+      completeAllTodos,
+      uncompleteAllTodos,
     };
   },
   {

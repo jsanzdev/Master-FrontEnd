@@ -5,6 +5,7 @@
         <SearchBar />
         <TodoFilter />
         <TodoList :todos="store.filteredTodos" @toggle="toggleTodo" @delete="deleteTodo" />
+        <TodoActions />
     </div>
 </template>
 
