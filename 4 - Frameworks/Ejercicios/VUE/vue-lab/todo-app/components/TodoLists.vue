@@ -125,7 +125,7 @@ const deleteList = (id: number) => {
 }
 
 .new-list-input input {
-    width: 100%;
+    width: 90%;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
     border: 1px solid #ddd;

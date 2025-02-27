@@ -8,8 +8,8 @@
                 {{ showSidebar ? '×' : '☰' }}
             </button>
             <h1>{{ store.activeList?.name || 'Todo App' }}</h1>
-            <TodoInput @add-todo="addTodo" />
             <SearchBar />
+            <TodoInput @add-todo="addTodo" />
             <TodoFilter />
             <TodoList :todos="store.filteredTodos" @toggle="toggleTodo" @delete="deleteTodo" />
             <TodoActions />

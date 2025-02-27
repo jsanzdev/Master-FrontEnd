@@ -22,7 +22,7 @@ const search = () => {
 }
 
 .search-input {
-    width: 100%;
+    width: 98%;
     padding: 0.5rem;
     font-size: 1rem;
 }
