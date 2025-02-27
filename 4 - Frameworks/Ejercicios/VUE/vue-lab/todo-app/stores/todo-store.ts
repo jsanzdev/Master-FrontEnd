@@ -1,12 +1,24 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { Todo } from "~/types/index";
+import type { Todo, FilterType } from "~/types/index";
 
 export const useTodoStore = defineStore(
   "todos",
   () => {
     const todos = ref<Todo[]>([]);
     const editingId = ref<number | null>(null);
+    const filter = ref<FilterType>("all");
+
+    const filteredTodos = computed(() => {
+      switch (filter.value) {
+        case "active":
+          return todos.value.filter((todo) => !todo.completed);
+        case "completed":
+          return todos.value.filter((todo) => todo.completed);
+        default:
+          return todos.value;
+      }
+    });
 
     const addTodo = (title: string) => {
       todos.value.push({
@@ -44,6 +56,10 @@ export const useTodoStore = defineStore(
       editingId.value = null;
     };
 
+    const setFilter = (newFilter: FilterType) => {
+      filter.value = newFilter;
+    };
+
     return {
       todos,
       editingId,
@@ -53,6 +69,9 @@ export const useTodoStore = defineStore(
       editTodo,
       startEditing,
       cancelEditing,
+      filter,
+      filteredTodos,
+      setFilter,
     };
   },
   {
