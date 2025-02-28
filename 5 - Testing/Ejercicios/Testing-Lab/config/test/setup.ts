@@ -1,4 +1,5 @@
-import '@testing-library/jest-dom/vitest';
+import "@testing-library/jest-dom/vitest";
+import "@testing-library/jest-dom";
 
 // Workaround to fix vitest timers for `waitFor` in `@testing-library/react`
 // Issue: https://github.com/testing-library/react-testing-library/issues/1197
