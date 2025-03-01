@@ -2,11 +2,10 @@ name: Testing Lab CI
 
 on:
   push:
-    paths:
-      - '5 - Testing/Ejercicios/Testing-Lab/**'
+    branches:
+      - main
   pull_request:
-    paths:
-      - '5 - Testing/Ejercicios/Testing-Lab/**'
+    types: [opened, synchronize, reopened]
 
 jobs:
   test:
