@@ -1,11 +1,6 @@
 name: Testing Lab CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened]
+on: pull_request
 
 jobs:
   test:
@@ -27,8 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run tests
         run: npm test
 
       - name: Run E2E tests
-        run: npm run e2e
+        run: npm run test:e2e
