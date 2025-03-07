@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { CharacterCollection } from "../api/character-collection.api-model";
+import { switchRoutes } from "#core/router";
 
 interface Props {
   character: CharacterCollection;
@@ -15,6 +16,14 @@ interface Props {
 export const CharacterCard: React.FC<Props> = (props) => {
   const { character } = props;
   const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    const route = switchRoutes.character.replace(
+      ":id",
+      character.id.toString()
+    );
+    navigate(route);
+  };
 
   const getStatusColor = (status: string): "success" | "error" | "default" => {
     switch (status) {
@@ -36,10 +45,7 @@ export const CharacterCard: React.FC<Props> = (props) => {
         flexDirection: "column",
       }}
     >
-      <CardActionArea
-        onClick={() => navigate(`/character/${character.id}`)}
-        sx={{ height: "100%" }}
-      >
+      <CardActionArea onClick={handleNavigation} sx={{ height: "100%" }}>
         <CardMedia
           component="img"
           height="280"

@@ -1,8 +1,12 @@
 import React from "react";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { switchRoutes } from "./routes";
-import { HotelCollectionScene, HotelScene } from "#scenes";
-import { CharacterCollectionScene } from "#scenes";
+import {
+  HotelCollectionScene,
+  HotelScene,
+  CharacterScene,
+  CharacterCollectionScene,
+} from "#scenes";
 
 export const RouterComponent: React.FunctionComponent = () => {
   return (
@@ -12,6 +16,7 @@ export const RouterComponent: React.FunctionComponent = () => {
           path={switchRoutes.characterCollection}
           element={<CharacterCollectionScene />}
         />
+        <Route path={switchRoutes.character} element={<CharacterScene />} />
         <Route
           path={switchRoutes.hotelCollection}
           element={<HotelCollectionScene />}
