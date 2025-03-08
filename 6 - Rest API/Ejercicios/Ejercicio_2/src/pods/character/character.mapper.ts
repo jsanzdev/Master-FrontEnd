@@ -14,4 +14,5 @@ export const mapCharacterFromApiToVm = (
   location: data.location?.name || "Unknown",
   image: data.image,
   episodes: Array.isArray(data.episode) ? data.episode.length : 0,
+  bestSentence: data.bestSentence || "",
 });

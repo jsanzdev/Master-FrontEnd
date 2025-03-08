@@ -15,22 +15,39 @@ export const CharacterContainer: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   React.useEffect(() => {
-    const loadCharacter = async () => {
-      try {
-        setLoading(true);
-        const apiCharacter = await getCharacter(Number(id));
-        setCharacter(mapCharacterFromApiToVm(apiCharacter));
-        setError(null);
-      } catch (e) {
-        setError("Error loading character");
-        console.error(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadCharacter();
   }, [id]);
+
+  const loadCharacter = async () => {
+    try {
+      setLoading(true);
+      const apiCharacter = await getCharacter(Number(id));
+      setCharacter(mapCharacterFromApiToVm(apiCharacter));
+      setError(null);
+    } catch (e) {
+      setError("Error loading character");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async (characterId: number, bestSentence: string) => {
+    try {
+      await fetch(`/api/character/${characterId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bestSentence }),
+      });
+      // Reload character to show updated data
+      await loadCharacter();
+    } catch (error) {
+      console.error("Error saving best sentence:", error);
+      setError("Error saving best sentence");
+    }
+  };
 
   if (loading) {
     return (
@@ -44,5 +61,5 @@ export const CharacterContainer: React.FC = () => {
     return <Alert severity="error">{error}</Alert>;
   }
 
-  return <CharacterComponent character={character} />;
+  return <CharacterComponent character={character} onSave={handleSave} />;
 };

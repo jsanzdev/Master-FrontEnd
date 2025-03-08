@@ -9,6 +9,7 @@ export interface CharacterVm {
   location: string;
   image: string;
   episodes: number;
+  bestSentence?: string;
 }
 
 export const createEmptyCharacter = (): CharacterVm => ({
