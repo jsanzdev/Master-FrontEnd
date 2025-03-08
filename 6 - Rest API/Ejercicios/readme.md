@@ -3,6 +3,11 @@
 # Ejercicio 1
 Implementacion de Character List y Character detail usando API Rest.
 
+## Extras
+- Barra de busqueda
+- Lista de Episodios
+- Lista de Lugares.
+
 
 # Ejercicio 2
 Partiendo del Ejercicio 1, implementamos un servidor local (carpeta server) Este servidor mock tiene como datos los 5 primeros personajes e implementa los métodos:
