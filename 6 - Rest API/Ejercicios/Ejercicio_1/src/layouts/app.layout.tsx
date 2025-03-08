@@ -36,6 +36,9 @@ export const AppLayout: React.FC<Props> = (props) => {
             <Button color="inherit" onClick={() => navigate("/episodes")}>
               Episodes
             </Button>
+            <Button color="inherit" onClick={() => navigate("/locations")}>
+              Locations
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>

@@ -7,6 +7,7 @@ import {
   CharacterScene,
   CharacterCollectionScene,
   EpisodeCollectionScene,
+  LocationCollectionScene,
 } from "#scenes";
 
 export const RouterComponent: React.FunctionComponent = () => {
@@ -20,6 +21,10 @@ export const RouterComponent: React.FunctionComponent = () => {
         <Route
           path={switchRoutes.episodeCollection}
           element={<EpisodeCollectionScene />}
+        />
+        <Route
+          path={switchRoutes.locationCollection}
+          element={<LocationCollectionScene />}
         />
         <Route path={switchRoutes.character} element={<CharacterScene />} />
         <Route
