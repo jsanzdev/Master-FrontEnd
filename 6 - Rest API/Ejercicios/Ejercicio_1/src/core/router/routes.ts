@@ -7,6 +7,7 @@ interface SwitchRoutes {
   editHotel: string;
   characterCollection: string;
   character: string;
+  episodeCollection: string;
 }
 
 export const switchRoutes: SwitchRoutes = {
@@ -16,6 +17,7 @@ export const switchRoutes: SwitchRoutes = {
   editHotel: "/hotels/:id",
   characterCollection: "/characters",
   character: "/characters/:id",
+  episodeCollection: "/episodes",
 };
 
 type NavigationFunction = (id: string) => string;
