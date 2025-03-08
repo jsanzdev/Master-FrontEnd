@@ -2,9 +2,15 @@ import React from "react";
 import { CharacterCollectionComponent } from "./character-collection.component";
 import { useCharacterCollection } from "./character-collection.hook";
 
-export const CharacterCollectionContainer: React.FC = () => {
+interface Props {
+  searchQuery: string;
+}
+
+export const CharacterCollectionContainer: React.FC<Props> = ({
+  searchQuery,
+}) => {
   const { characterCollection, loading, error, page, setPage } =
-    useCharacterCollection();
+    useCharacterCollection(searchQuery);
 
   return (
     <CharacterCollectionComponent

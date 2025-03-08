@@ -1,9 +1,15 @@
 import React from "react";
 import { AppLayout } from "#layouts";
 import { CharacterCollectionContainer } from "#pods/character-collection";
-import { Typography, Container } from "@mui/material";
+import { Typography, Container, Box, TextField } from "@mui/material";
 
 export const CharacterCollectionScene: React.FC = () => {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <AppLayout>
       <Container maxWidth="xl">
@@ -19,7 +25,20 @@ export const CharacterCollectionScene: React.FC = () => {
         >
           Rick and Morty Characters
         </Typography>
-        <CharacterCollectionContainer />
+        <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+          <TextField
+            label="Search characters"
+            variant="outlined"
+            value={searchQuery}
+            onChange={handleSearch}
+            sx={{ width: "100%", maxWidth: 500 }}
+            InputProps={{
+              type: "search",
+            }}
+          />
+        </Box>
+
+        <CharacterCollectionContainer searchQuery={searchQuery} />
       </Container>
     </AppLayout>
   );
