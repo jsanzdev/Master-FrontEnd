@@ -7,16 +7,17 @@
 4. Prototipo de alta fidelidad en Figa.
 
 
-# 1. Moodboard
+# 1. Moodboard, Crazy, Mockup.
 https://www.figma.com/board/uy3x4NSYQk9FI2Dt3BtXxY/Prototipado?node-id=4-28&t=hzu9gelpkJaaqPiG-1
 
 
 
 # 2. Crazy
+La app debe ser lo mas simple posible, por eso optamos por CARDS que ocupan media pantalla, asi el usuario puede enfocarse en la informacion que necesita.
 
+La ciudad, temperatura y el tiempo actual es visible nada mas entrar, ademas del nivel de alerta. El usuario puede buscar actividades con sugerencias de localizacion para llevar acabo la actividad.
 
-# 3. Mockup
-
+En caso de Alerta se proporciona un mapa con el nivel de alerta por zona ademas de una linea del tiempo con lo que se prevee.
 
 
 # 4. Figma
